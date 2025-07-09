@@ -1,7 +1,7 @@
 import { ReportsRepository } from "../data/protocols/reports-repository";
-
 export class ReportsMongoRepository implements ReportsRepository {
   async getReports(): Promise<any> {
+    console.log("Fetching reports from MongoDB...");
     // Simulating a database call
     return {
       reports: [

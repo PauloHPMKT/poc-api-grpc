@@ -1,13 +1,16 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Inject } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
-import { ReportsService } from '../data/services/reports.service';
+import { GetReports } from '../domain/protocols/get-reports';
 
 @Controller()
 export class ReportsController {
-    constructor(private readonly reportsService: ReportsService) {}
+  constructor(
+    @Inject('GetReports')
+    private readonly reportsService: GetReports
+  ) {}
 
-    @GrpcMethod('ReportsService', 'ListReports')
-    listReports(reports: any, metadata: any) {
-        return this.reportsService.getReports();
-    }
+  @GrpcMethod('ReportsService', 'ListReports')
+  async listReports(reports: any, metadata: any) {
+    return await this.reportsService.execute();
+  }
 }

@@ -1,9 +1,15 @@
-import { Module } from '@nestjs/common';
+import { Module, Provider } from '@nestjs/common';
 import { ReportsController } from './reports.controller';
-import { ReportsService } from '../data/services/reports.service';
+import { makeReportsRepositoryProvider } from '../data/providers/reports-provider';
+import { makeReportsDomainProviders } from '../domain/providers/reports-provider';
+
+const providers: Provider[] = [
+  ...makeReportsRepositoryProvider(),
+  ...makeReportsDomainProviders()
+];
 
 @Module({
   controllers: [ReportsController],
-  providers: [ReportsService],
+  providers,
 })
 export class ReportsModule {}
