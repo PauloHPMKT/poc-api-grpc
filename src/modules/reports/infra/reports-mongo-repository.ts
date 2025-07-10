@@ -1,8 +1,18 @@
-import { ReportsRepository } from "../data/protocols/reports-repository";
+import { PrismaService } from 'src/modules/database/services/prisma.service';
+import { ReportsRepository } from '../data/protocols/reports-repository';
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
 export class ReportsMongoRepository implements ReportsRepository {
+  constructor(private readonly prismaService: PrismaService) {}
+
   async getReports(): Promise<any> {
-    console.log("Fetching reports from MongoDB...");
-    // Simulating a database call
+    await this.prismaService.report.create({
+      data: {
+        title: 'Relatório de Teste',
+        content: 'Este é um relatório de teste.',
+      },
+    });
     return {
       reports: [
         {
@@ -18,6 +28,6 @@ export class ReportsMongoRepository implements ReportsRepository {
           author: 'Maria',
         },
       ],
-    }
+    };
   }
 }

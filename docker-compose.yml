@@ -1,0 +1,28 @@
+services:
+  poc-analytics-api:
+    build:
+      context: ./
+    container_name: poc-analytics-api
+    entrypoint: sh ./.docker/entrypoint.sh
+    tty: true
+    volumes:
+      - ./:/usr/poc-analitycs-api/app
+    ports:
+      - 50041:50041
+    environment:
+      DATABASE_URL: 'mongodb://localhost:27018/tpoc-analytics-db' ##'mongodb://${MONGO_DEV_USER}:${MONGO_DEV_PASS}@${MONGO_DEV_HOST}/tallos-megasac?${MONGO_DEV_OPTIONS}'
+    extra_hosts:
+      - host.docker.internal:172.17.0.1
+
+  db:
+    image: mongo:5
+    container_name: mongo-db
+    ports:
+      - 27018:27018
+    volumes:
+      - /mongodb/dbdata:/data/db
+      - /mongodb/configdb:/data/configdb
+    environment:
+      #      MONGO_INITDB_ROOT_USERNAME: root
+      #      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: poc-analytics-db
