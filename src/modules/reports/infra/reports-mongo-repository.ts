@@ -7,12 +7,11 @@ export class ReportsMongoRepository implements ReportsRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
   async getReports(): Promise<any> {
-    await this.prismaService.report.create({
-      data: {
-        title: 'Relatório de Teste',
-        content: 'Este é um relatório de teste.',
-      },
-    });
+    const reports = await this.prismaService.report.findMany();
+    if (reports.length === 0) {
+      return { reports: [] };
+    }
+
     return {
       reports: [
         {

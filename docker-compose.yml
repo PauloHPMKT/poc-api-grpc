@@ -10,19 +10,19 @@ services:
     ports:
       - 50041:50041
     environment:
-      DATABASE_URL: 'mongodb://localhost:27018/tpoc-analytics-db' ##'mongodb://${MONGO_DEV_USER}:${MONGO_DEV_PASS}@${MONGO_DEV_HOST}/tallos-megasac?${MONGO_DEV_OPTIONS}'
+      DATABASE_URL: 'mongodb://${MONGO_DEV_USER}:${MONGO_DEV_PASS}@${MONGO_DEV_HOST}/tallos-megasac?${MONGO_DEV_OPTIONS}' ##'mongodb://localhost:27018/tpoc-analytics-db'
     extra_hosts:
       - host.docker.internal:172.17.0.1
 
-  db:
-    image: mongo:5
-    container_name: mongo-db
-    ports:
-      - 27018:27018
-    volumes:
-      - /mongodb/dbdata:/data/db
-      - /mongodb/configdb:/data/configdb
-    environment:
-      #      MONGO_INITDB_ROOT_USERNAME: root
-      #      MONGO_INITDB_ROOT_PASSWORD: root
-      MONGO_INITDB_DATABASE: poc-analytics-db
+  # db:
+  #   image: mongo:5
+  #   container_name: mongo-db
+  #   ports:
+  #     - 27018:27018
+  #   volumes:
+  #     - /mongodb/dbdata:/data/db
+  #     - /mongodb/configdb:/data/configdb
+  #   environment:
+  #     #      MONGO_INITDB_ROOT_USERNAME: root
+  #     #      MONGO_INITDB_ROOT_PASSWORD: root
+  #     MONGO_INITDB_DATABASE: poc-analytics-db
