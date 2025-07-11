@@ -1,6 +1,7 @@
 import { PrismaService } from 'src/modules/database/services/prisma.service';
 import { ReportsRepository } from '../data/protocols/reports-repository';
 import { Injectable } from '@nestjs/common';
+import { randomBytes } from 'crypto';
 
 @Injectable()
 export class ReportsMongoRepository implements ReportsRepository {
@@ -8,25 +9,7 @@ export class ReportsMongoRepository implements ReportsRepository {
 
   async getReports(): Promise<any> {
     const reports = await this.prismaService.report.findMany();
-    if (reports.length === 0) {
-      return { reports: [] };
-    }
-
-    return {
-      reports: [
-        {
-          id: '1',
-          title: 'Relatório 1',
-          content: 'Conteúdo do relatório 1',
-          author: 'João Matias',
-        },
-        {
-          id: '2',
-          title: 'Relatório 2',
-          content: 'Conteúdo do relatório 2',
-          author: 'Maria',
-        },
-      ],
-    };
+    console.log('Reports found:', reports);
+    return { reports };
   }
 }
